@@ -1,42 +1,296 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* ==== Reset y estilos base ==== */
+
+/* Aplica a todos los elementos: quita márgenes y padding por defecto, 
+   y usa el modelo de caja border-box (el padding y borde cuentan dentro del tamaño total) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos base para el body */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente */
+  background: #fff;                /* Fondo blanco */
+  color: #222;                     /* Texto gris oscuro */
+  min-height: 100vh;                /* Altura mínima de toda la pantalla */
+  display: flex;                   /* Centrar contenido con Flexbox */
+  align-items: center;             
+  justify-content: center;
+}
+
+/* Capa de fondo decorativa semitransparente */
+body::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0; /* Cubre toda la pantalla */
+  z-index: 0; 
+  background: url('https://svgshare.com/i/13uA.svg') repeat-x; /* Imagen decorativa repetida horizontalmente */
+  opacity: 0.18;          /* Transparencia */
+  pointer-events: none;   /* No bloquea clics */
+}
+
+/* Contenedor principal de la aplicación */
+.app-container {
+  width: 100%;
+  max-width: 900px;    /* Ancho máximo */
+  padding: 80px 0;
+  margin: 0 auto;      /* Centrado horizontal */
+}
+
+/* ==== Estilos para la tarjeta de login ==== */
+.login-card, .welcome-card {
+  background: #fff;
+  border-radius: 24px; 
+  padding: 64px 64px;  
+  box-shadow: 0 8px 32px 0 rgba(30,60,114,0.25),
+              0 1.5px 8px 0 rgba(44,62,80,0.08); /* Sombra */
+  border: 2.5px solid #2a5298; /* Borde azul */
+  animation: blueShadowPulse 2.5s infinite alternate; /* Animación */
+}
+
+/* Animación que hace parpadear el borde y la sombra en tonos azules */
+@keyframes blueShadowPulse {
+  0% {
+    box-shadow: 0 8px 32px 0 rgba(30,60,114,0.25),
+                0 1.5px 8px 0 rgba(44,62,80,0.08);
+    border-color: #2a5298;
+  }
+  100% {
+    box-shadow: 0 16px 48px 0 rgba(33,147,176,0.32),
+                0 1.5px 8px 0 rgba(44,62,80,0.08);
+    border-color: #2193b0;
+  }
+}
+
+/* Animación que desliza hacia arriba y aparece con opacidad */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==== Header del login ==== */
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-header h1 {
+  color: #222;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.login-header p {
+  color: #555;
+  font-size: 1rem;
+}
+
+/* ==== Formulario de login ==== */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espacio entre campos */
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  color: #222;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.input-group input {
+  padding: 12px 18px 12px 38px; /* Espaciado interno */
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  background: #f7f7f7;
+  color: #222;
+  box-shadow: 0 2px 8px rgba(30,60,114,0.12);
+  margin-bottom: 8px;
+  outline: none;
+  position: relative;
+}
+
+/* Estilo cuando el input está enfocado */
+.input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Estilo cuando el input está deshabilitado */
+.input-group input:disabled {
+  background: #f8f9fa;
+  cursor: not-allowed;
+}
+
+/* ==== Botón de login ==== */
+.login-btn {
+  background: #222;
+  color: #fff;
+  border: none;
+  padding: 13px 0;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 2px 12px rgba(33,147,176,0.15);
+  letter-spacing: 1px;
+}
+
+/* Efecto hover */
+.login-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+/* Efecto al hacer clic */
+.login-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* Botón deshabilitado */
+.login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ==== Mensajes de error o éxito ==== */
+.mensaje {
+  padding: 15px 20px;
+  border-radius: 12px;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 20px;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.mensaje.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.mensaje.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Animación de aparición para mensajes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==== Footer con usuarios de prueba ==== */
+.login-footer {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e1e5e9;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.login-footer p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.test-users {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.test-users span {
+  background: #f8f9fa;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #495057;
+  font-family: 'Courier New', monospace;
+  border: 1px solid #e9ecef;
+}
+
+/* ==== Pantalla de bienvenida ==== */
+.welcome-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  animation: slideUp 0.6s ease-out;
+}
+
+.welcome-card h1 {
+  color: #222;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.welcome-card p {
+  color: #555;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+/* Botón para cerrar sesión */
+.logout-btn {
+  background: #222;
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+}
+
+/* ==== Diseño responsivo para pantallas pequeñas ==== */
+@media (max-width: 480px) {
+  .app-container {
+    padding: 10px;
+    max-width: 98vw;
   }
-  to {
-    transform: rotate(360deg);
+  .login-card, .welcome-card {
+    padding: 18px 6px;
+    border-radius: 16px;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  .login-header h1,
+  .welcome-card h1 {
+    font-size: 1.3rem;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
