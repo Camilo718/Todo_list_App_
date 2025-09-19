@@ -1,7 +1,7 @@
 // db.js
-export const usuarios = [
+export const usuarios = [ 
     { username: "Josthin", password: "160515" },
-    { username: "Dilan", password: "202585" },
+    { username: "Dilan", password: "20258999" },
     { username: "Camilo",  password: "102658" }
   ];
   

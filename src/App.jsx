@@ -1,7 +1,7 @@
 import { useState } from 'react'; // Importa el hook useState de React para manejar estados locales
 import { motion, AnimatePresence } from 'framer-motion'; // Importa componentes para animaciones
 import { usuarios } from '../db'; // Importa un arreglo de usuarios desde un archivo local llamado db.js
-import './App.css'; // Importa el archivo de estilos CSS para este componente
+import './App.css'; // Importa el archivo de estilos CSS  para este componente
 
 function App() {
   // Estados del componente:
