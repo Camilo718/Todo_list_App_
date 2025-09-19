@@ -408,7 +408,7 @@ header .logout-btn:hover {
 
 /* Botón clásico amarillo para editar */
 .btn-editar {
-  background-color: #ffeb3b; /* Amarillo */
+  background-color: #3bff6f; /* Amarillo */
   color: black;
   border: 2px solid #fbc02d;
   padding: 8px 16px;
@@ -420,12 +420,12 @@ header .logout-btn:hover {
 }
 
 .btn-editar:hover {
-  background-color: #fbc02d;
+  background-color: #c1b492;
 }
 
 /* Botón clásico rojo para eliminar */
 .btn-eliminar {
-  background-color: #f44336; /* Rojo */
+  background-color: #8809cc; /* Rojo */
   color: black;
   border: 2px solid #d32f2f;
   padding: 8px 16px;

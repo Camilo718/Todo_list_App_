@@ -2,28 +2,26 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usuarios } from "../db";
 import SearchInput from "./pages/buscador";
-import Listas from "./pages/listas"; // Import the Listas component
-import "./App.css";
+import Listas from "./pages/listas";
+
 
 // Icon for user
 const UserIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
   </svg>
 );
 
 function App() {
-  // Estados de login (se mantienen igual)
   const [username, setUsername] = useState(() => localStorage.getItem("usuarioActual") || "");
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem("usuarioActual"));
 
-  // Estado del buscador (se mantiene en App para controlar el header)
   const [searchQuery, setSearchQuery] = useState("");
 
-  // --- Login --- (se mantiene igual)
+  // --- Login ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -48,15 +46,17 @@ function App() {
     localStorage.removeItem("usuarioActual");
   };
 
-  // --- Vista si ya está logueado (COMPLETAMENTE REFACTORIZADA) ---
+  // --- Vista logueado ---
   if (isLoggedIn) {
     return (
-      <div className="w-full min-h-screen bg-gray-50 text-gray-800">
-        <header className="flex justify-between items-center p-4 sm:p-6 bg-white shadow-md">
+      <div className="w-full min-h-screen bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 text-gray-800">
+        <header className="flex justify-between items-center p-4 sm:p-6 bg-white/70 backdrop-blur-md shadow-md rounded-b-xl">
           {/* User Info */}
           <div className="flex items-center gap-3">
             <UserIcon />
-            <span className="font-semibold text-lg hidden sm:block">¡Bienvenido, {username}!</span>
+            <span className="font-semibold text-lg hidden sm:block text-blue-700">
+              ¡Bienvenido, {username}!
+            </span>
           </div>
 
           {/* Search Bar */}
@@ -67,7 +67,7 @@ function App() {
           {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-semibold"
+            className="px-6 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-lg shadow-md hover:shadow-blue-300 hover:scale-105 active:scale-95 transition-all font-semibold"
           >
             Cerrar Sesión
           </button>
@@ -80,28 +80,41 @@ function App() {
     );
   }
 
-  // --- Vista si no está logueado (se mantiene igual) ---
+  // --- Vista login ---
   return (
-    <div className="app-container">
+    <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 font-sans">
       <AnimatePresence>
         <motion.div
-          className="login-card"
+          className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-8 w-full max-w-sm"
           initial={{ opacity: 0, scale: 0.9, y: 40 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: -40 }}
           transition={{ duration: 0.7, type: "spring" }}
         >
-          <div className="login-header">
-            <motion.h1 initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.5 }}>
+          <div className="text-center mb-6">
+            <motion.h1
+              className="text-2xl font-bold text-blue-700"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
               Iniciar Sesión
             </motion.h1>
-            <motion.p initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3, duration: 0.5 }}>
+            <motion.p
+              className="text-gray-600 mt-2"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
               Accede a tu cuenta
             </motion.p>
           </div>
-          <form onSubmit={handleSubmit} className="login-form">
-            <motion.div className="input-group" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
-              <label htmlFor="username">Usuario</label>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
+              <label htmlFor="username" className="block text-sm font-semibold text-blue-700 mb-1">
+                Usuario
+              </label>
               <input
                 type="text"
                 id="username"
@@ -110,10 +123,14 @@ function App() {
                 placeholder="Ingresa tu usuario"
                 required
                 disabled={isLoading}
+                className="w-full px-3 py-2 rounded-lg border border-blue-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none"
               />
             </motion.div>
-            <motion.div className="input-group" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}>
-              <label htmlFor="password">Contraseña</label>
+
+            <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}>
+              <label htmlFor="password" className="block text-sm font-semibold text-blue-700 mb-1">
+                Contraseña
+              </label>
               <input
                 type="password"
                 id="password"
@@ -122,16 +139,26 @@ function App() {
                 placeholder="Ingresa tu contraseña"
                 required
                 disabled={isLoading}
+                className="w-full px-3 py-2 rounded-lg border border-blue-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none"
               />
             </motion.div>
-            <motion.button type="submit" className="login-btn" disabled={isLoading}>
+
+            <motion.button
+              type="submit"
+              disabled={isLoading}
+              className="w-full py-2 rounded-lg bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold shadow-md hover:from-blue-500 hover:to-blue-700 hover:shadow-blue-300 hover:scale-105 active:scale-95 transition-all"
+
+            >
               {isLoading ? "Iniciando sesión..." : "Entrar"}
             </motion.button>
           </form>
+
           {mensaje && (
             <motion.div
               key="mensaje"
-              className={`mensaje ${mensaje.includes("exitoso") ? "success" : "error"}`}
+              className={`mt-4 text-center font-semibold ${
+                mensaje.includes("exitoso") ? "text-green-600" : "text-red-600"
+              }`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}

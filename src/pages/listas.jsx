@@ -6,11 +6,9 @@ import TaskModal from "../components/TaskModal";
  * Componente Listas: Maneja la lista de tareas, paginación y modal de detalles.
  */
 export default function Listas({ autorActual, searchQuery }) {
-  // Estado para las tareas, texto del input y paginación
   const [tareas, setTareas] = useState(() => {
-    // Opcional: Cargar tareas desde localStorage
     try {
-      const localTareas = localStorage.getItem('tareas');
+      const localTareas = localStorage.getItem("tareas");
       return localTareas ? JSON.parse(localTareas) : [];
     } catch (error) {
       console.error("Error al parsear tareas desde localStorage", error);
@@ -23,16 +21,14 @@ export default function Listas({ autorActual, searchQuery }) {
   const [selectedTask, setSelectedTask] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Efecto para guardar tareas en localStorage cuando cambian
   useEffect(() => {
     try {
-      localStorage.setItem('tareas', JSON.stringify(tareas));
+      localStorage.setItem("tareas", JSON.stringify(tareas));
     } catch (error) {
       console.error("Error al guardar tareas en localStorage", error);
     }
   }, [tareas]);
 
-  // --- Funciones para manejo de tareas ---
   const agregarTarea = () => {
     if (!texto.trim()) return;
     const newTareas = [
@@ -59,15 +55,15 @@ export default function Listas({ autorActual, searchQuery }) {
   };
 
   const editarTarea = (id) => {
-    const tareaAEditar = tareas.find(t => t.id === id);
+    const tareaAEditar = tareas.find((t) => t.id === id);
     if (!tareaAEditar) return;
     const nuevoTexto = prompt("Nuevo texto de la tarea:", tareaAEditar.text);
     if (nuevoTexto && nuevoTexto.trim() !== tareaAEditar.text) {
-        setTareas(
-            tareas.map((t) =>
-                t.id === id ? { ...t, text: nuevoTexto } : t
-            )
-        );
+      setTareas(
+        tareas.map((t) =>
+          t.id === id ? { ...t, text: nuevoTexto } : t
+        )
+      );
     }
   };
 
@@ -82,7 +78,6 @@ export default function Listas({ autorActual, searchQuery }) {
     }
   };
 
-  // --- Lógica de filtrado y paginación ---
   const tareasFiltradas = tareas.filter((t) =>
     t.text.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -92,14 +87,13 @@ export default function Listas({ autorActual, searchQuery }) {
   const currentTasks = tareasFiltradas.slice(indexOfFirstTask, indexOfLastTask);
   const totalPages = Math.ceil(tareasFiltradas.length / tasksPerPage);
 
-  // Efecto para resetear a página 1 cuando cambia la búsqueda
   useEffect(() => {
     setCurrentPage(1);
   }, [searchQuery]);
 
   const paginate = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
-        setCurrentPage(pageNumber);
+      setCurrentPage(pageNumber);
     }
   };
 
@@ -114,20 +108,20 @@ export default function Listas({ autorActual, searchQuery }) {
   };
 
   return (
-    <div className="full-page-container">
+    <div className="full-page-container px-6">
       {/* Formulario para agregar tarea */}
-      <div className="bg-white border-2 border-gray-200 p-4 rounded-lg my-4 flex items-center gap-4 shadow-md max-w-full">
+      <div className="bg-blue-100/70 border-2 border-blue-300 p-4 rounded-xl my-6 flex items-center gap-4 shadow-md max-w-full backdrop-blur-sm">
         <input
           type="text"
           placeholder="Escribe una nueva tarea..."
-          className="flex-grow p-2 text-black bg-transparent focus:outline-none"
+          className="flex-grow p-3 text-gray-800 bg-white/70 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
           value={texto}
           onChange={(e) => setTexto(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && agregarTarea()}
+          onKeyPress={(e) => e.key === "Enter" && agregarTarea()}
         />
         <button
           onClick={agregarTarea}
-          className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-transform transform hover:scale-105 active:scale-95 font-semibold"
+          className="px-6 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-lg shadow-md hover:shadow-blue-300 hover:scale-105 active:scale-95 transition-all font-semibold"
         >
           Crear
         </button>
@@ -146,30 +140,36 @@ export default function Listas({ autorActual, searchQuery }) {
           />
         ))}
       </div>
-      
+
       {/* Mensaje cuando no hay tareas */}
       {tareas.length > 0 && tareasFiltradas.length === 0 && (
         <div className="text-center py-12">
-            <h3 className="text-xl font-semibold text-gray-600">No se encontraron tareas</h3>
-            <p className="text-gray-500">Intenta con otra búsqueda.</p>
+          <h3 className="text-xl font-semibold text-blue-700">
+            No se encontraron tareas
+          </h3>
+          <p className="text-blue-500">Intenta con otra búsqueda.</p>
         </div>
       )}
 
       {/* Controles de paginación */}
       {totalPages > 1 && (
-        <div className="mt-8 flex justify-center items-center gap-2">
+        <div className="mt-10 flex justify-center items-center gap-3">
           <button
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-white border-2 border-blue-500 text-blue-500 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-white border-2 border-blue-400 text-blue-500 rounded-md shadow-sm hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
           >
-            Anterior
+            ◀ Anterior
           </button>
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
             <button
               key={number}
               onClick={() => paginate(number)}
-              className={`px-4 py-2 rounded-md ${currentPage === number ? 'bg-blue-500 text-white' : 'bg-white border-2 border-blue-500 text-blue-500'}`}
+              className={`px-4 py-2 rounded-md font-medium shadow-sm transition ${
+                currentPage === number
+                  ? "bg-blue-500 text-white shadow-md"
+                  : "bg-white border-2 border-blue-400 text-blue-500 hover:bg-blue-50"
+              }`}
             >
               {number}
             </button>
@@ -177,9 +177,9 @@ export default function Listas({ autorActual, searchQuery }) {
           <button
             onClick={() => paginate(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-white border-2 border-blue-500 text-blue-500 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-white border-2 border-blue-400 text-blue-500 rounded-md shadow-sm hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
           >
-            Siguiente
+            Siguiente ▶
           </button>
         </div>
       )}
