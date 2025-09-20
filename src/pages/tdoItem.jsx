@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 // Componente TodoItem: Representa una tarea individual en la lista de tareas.
@@ -34,6 +35,9 @@ export default function TodoItem({ tarea, toggleCompleted, onEditar, onEliminar,
                     <div className="text-xs text-gray-500 mb-3 text-center">
                       <div>Autor: {tarea.autor}</div>
                       <div>Creado: {new Date(tarea.id).toLocaleString()}</div>
+                      {tarea.editadoPor && (
+                        <div>Editado por: {tarea.editadoPor}</div>
+                      )}
                     </div>
 
                     {/* Contenedor de botones */}
@@ -63,6 +67,7 @@ TodoItem.propTypes = {
         text: PropTypes.string.isRequired,
         completed: PropTypes.bool.isRequired,
         autor: PropTypes.string,
+        editadoPor: PropTypes.string,
     }).isRequired,
     toggleCompleted: PropTypes.func.isRequired,
     onEditar: PropTypes.func.isRequired,

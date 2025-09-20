@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import TodoItem from "./tdoItem";
 import TaskModal from "../components/TaskModal";
 
@@ -38,6 +38,7 @@ export default function Listas({ autorActual, searchQuery }) {
         text: texto,
         autor: autorActual,
         completed: false,
+        editadoPor: null,
       },
     ];
     setTareas(newTareas);
@@ -61,7 +62,7 @@ export default function Listas({ autorActual, searchQuery }) {
     if (nuevoTexto && nuevoTexto.trim() !== tareaAEditar.text) {
       setTareas(
         tareas.map((t) =>
-          t.id === id ? { ...t, text: nuevoTexto } : t
+          t.id === id ? { ...t, text: nuevoTexto, editadoPor: autorActual } : t
         )
       );
     }

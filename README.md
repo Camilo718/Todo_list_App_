@@ -1,12 +1,60 @@
-# React + Vite
+# Todo List App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web para gestionar tareas, desarrollada con React, Vite y Tailwind CSS.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Registro y login de usuarios (simulado con jest).
+- Crear, editar, eliminar y marcar tareas como completadas.
+- Búsqueda de tareas por texto.
+- Visualización de autor, fecha de creación, última edición de cada tarea y usuario que la edito.
 
-## Expanding the ESLint configuration
+## Instalación y ejecución
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clona el repositorio:
+	```bash
+	git clone <url-del-repo>
+	cd Todo_list_App_
+	```
+2. Instala las dependencias:
+	```bash
+	npm install
+	```
+3. Inicia la app en modo desarrollo:
+	```bash
+	npm run dev
+	```
+## Pruebas Unitarias
+
+Este proyecto utiliza **Jest** y **@testing-library/react** para pruebas unitarias de los componentes y la lógica de la app como el login.
+
+### ¿Cómo ejecutar las pruebas?
+
+1. Instala las dependencias si no lo has hecho:
+	```bash
+	npm install
+	```
+2. Ejecuta todas las pruebas:
+	```bash
+	npm test
+	```
+
+### ¿Qué cubren los tests?
+
+- Pruebas de login: formulario, validación y mensajes de error.
+- Pruebas de tareas: crear, editar (incluye mostrar "Editado por"), y eliminar tareas usando la interfaz.
+- Comprobación de renderizado de componentes y mensajes.
+
+### Ubicación de los tests
+
+Los archivos de pruebas están en `src/test/`:
+- `login.test.js`: Pruebas del login.
+- `tareas.test.js`: Pruebas de gestión de tareas (crear, editar, eliminar).
+
+### Tecnologías usadas para testing
+
+- [Jest](https://jestjs.io/)
+- [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)
+- [@testing-library/jest-dom](https://testing-library.com/docs/ecosystem-jest-dom/)
+
+
