@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion"; // <-- AGREGA ESTA LÍNEA
 import { usuarios } from "../db";
 import SearchInput from "./pages/buscador";
 import Listas from "./pages/listas";

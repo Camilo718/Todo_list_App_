@@ -15,7 +15,14 @@
   "plugins": ["react", "react-hooks"], 
   "rules": { 
     "react/react-in-jsx-scope": "off",
-    "no-undef": "off"
+    "no-undef": "off",
+    "no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "^motion$|^[A-Z_]",
+        "argsIgnorePattern": "^_"
+      }
+    ]
   },
   "settings": { "react": { "version": "detect" } } 
 }
