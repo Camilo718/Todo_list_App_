@@ -11,7 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "framer-motion": "^12.23.15",
+    "framer-motion": "^12.23.16",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "test": "^3.3.0"

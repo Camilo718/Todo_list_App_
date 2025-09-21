@@ -1,0 +1,19 @@
+import { motion, AnimatePresence } from 'framer-motion';
+
+function App() {
+    return (
+        <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 font-sans">
+            <AnimatePresence>
+                <motion.div
+                    className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-8 w-full max-w-sm"
+                    initial={{ opacity: 0, scale: 0.9, y: 40 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                >
+                    {/* Your component code here */}
+                </motion.div>
+            </AnimatePresence>
+        </div>
+    );
+}
+
+export default App;
