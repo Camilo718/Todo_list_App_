@@ -1,14 +1,24 @@
 import React, { useState } from "react";
-import { motion ,AnimatePresence } from "framer-motion"; // <-- AGREGA ESTA LÍNEA
+import { motion, AnimatePresence } from "framer-motion"; // ✅ Importa motion también
 import { usuarios } from "../db";
 import SearchInput from "./pages/buscador";
 import Listas from "./pages/listas";
 
-
 // Icon for user
 const UserIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6 text-blue-600"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+    />
   </svg>
 );
 
@@ -27,7 +37,9 @@ function App() {
     setIsLoading(true);
     setMensaje("");
     await new Promise((resolve) => setTimeout(resolve, 500));
-    const userFound = usuarios.find((user) => user.username === username && user.password === password);
+    const userFound = usuarios.find(
+      (user) => user.username === username && user.password === password
+    );
     if (userFound) {
       setMensaje("Login exitoso. Redirigiendo...");
       localStorage.setItem("usuarioActual", username);
@@ -112,7 +124,10 @@ function App() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
-              <label htmlFor="username" className="block text-sm font-semibold text-blue-700 mb-1">
+              <label
+                htmlFor="username"
+                className="block text-sm font-semibold text-blue-700 mb-1"
+              >
                 Usuario
               </label>
               <input
@@ -128,7 +143,10 @@ function App() {
             </motion.div>
 
             <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}>
-              <label htmlFor="password" className="block text-sm font-semibold text-blue-700 mb-1">
+              <label
+                htmlFor="password"
+                className="block text-sm font-semibold text-blue-700 mb-1"
+              >
                 Contraseña
               </label>
               <input
@@ -147,7 +165,6 @@ function App() {
               type="submit"
               disabled={isLoading}
               className="w-full py-2 rounded-lg bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold shadow-md hover:from-blue-500 hover:to-blue-700 hover:shadow-blue-300 hover:scale-105 active:scale-95 transition-all"
-
             >
               {isLoading ? "Iniciando sesión..." : "Entrar"}
             </motion.button>

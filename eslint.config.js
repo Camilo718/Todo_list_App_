@@ -26,7 +26,14 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // Ignorar motion y variables en MAYÚSCULA o con _
+      'no-unused-vars': [
+        'error',
+        {
+          varsIgnorePattern: '^motion$|^[A-Z_]',
+          argsIgnorePattern: '^_',
+        },
+      ],
     },
   },
   {
