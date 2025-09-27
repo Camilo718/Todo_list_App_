@@ -3,7 +3,7 @@ import TodoItem from "./tdoItem";
 import TaskModal from "../components/TaskModal";
 
 /**
- * Componente Listas: Maneja la lista de tareas, paginación y modal de detalles.
+ * Componente Listas: Maneja la lista de tareas, paginación y modal de detalless.
  */
 export default function Listas({ autorActual, searchQuery }) {
   const [tareas, setTareas] = useState(() => {

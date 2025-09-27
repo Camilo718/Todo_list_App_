@@ -3,15 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://camilo718.github.io/Todo_list_App_/",
+  "description": "Una aplicación de lista de tareas construida con React, Vite y Tailwind CSS.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext .js,.jsx",
     "preview": "vite preview",
-    "test": "jest",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "test": "jest"
   },
   "dependencies": {
     "framer-motion": "^12.23.16",
